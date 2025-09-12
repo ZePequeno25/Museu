@@ -1,4 +1,8 @@
 const { home } = require('../controllers/home.js');
+<<<<<<< HEAD 
+=======
+const { comentarioPost } = require('../controllers/mensagem.js');
+>>>>>>> 139b3c0 (pit)
 const { tarsila } = require('../controllers/tarsila.js');
 const { portinari } = require('../controllers/portinari.js');
 
@@ -26,6 +30,16 @@ module.exports = {
       console.log('Rota /portinari acionada');
       portinari(app, req, res);
     });
+<<<<<<< HEAD
+=======
+  },
+  mensagem: (app) => {
+    
+    app.post('/', function (req, res) {
+      console.log('Rota / acionada via POST');
+      comentarioPost(app, req, res); //Controller da mensagem
+    });
+>>>>>>> 139b3c0 (pit)
   }
 
 }

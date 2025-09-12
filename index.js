@@ -11,6 +11,10 @@ routes.home(app);
 routes.tarsila(app);
 routes.portinari(app);
 routes.routeNotFound(app);
+<<<<<<< HEAD
+=======
+routes.mensagem(app);
+>>>>>>> 139b3c0 (pit)
 
 app.use((req, res, next) => {
         
