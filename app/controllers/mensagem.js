@@ -1,27 +1,22 @@
-const dbConnection = require('../../config/dbConnection.js');
-const { insertComment } = require('../models/mensagem.js');
+const dbConnection = require("../../config/dbConnection.js");
+const { salvar } = require("../models/mensagemModel.js");
 
-module.exports.comentarioPost = (app, req, res) => {
-  console.log('[Controller ComentarioPost]');
+module.exports = (app, req, res) => {
+  console.log("[Controller Mensagem]");
+
+  const conn = dbConnection();
   const { comentary, id_obradearte } = req.body;
-  const dbConn = dbConnection();
 
-  // Validação básica (opcional, mas bom para evitar erros no BD)
   if (!comentary || !id_obradearte) {
-    console.error('Validação falhou: campos obrigatórios faltando');
-    return res.redirect('/?success=false&erro=Comentário e ID da obra são obrigatórios!');
+    return res.status(400).send("Dados inválidos");
   }
 
-  insertComment(dbConn, comentary, parseInt(id_obradearte), (error, result) => {
-    console.log('Erro: ', error);
-    console.log('Resultado inserido:', result);
-
-    if (error) {
-      console.error('Erro ao inserir comentário:', error);
-      return res.redirect('/?success=false&erro=Erro ao salvar no banco!');
-    } else {
-      console.log('Comentário inserido com sucesso!');
-      res.redirect('/?success=true'); // OK: Redireciona para home com sucesso
+  salvar(conn, comentary, id_obradearte, (err, result) => {
+    if (err) {
+      console.error("Erro ao salvar comentário:", err);
+      return res.status(500).send("Erro no servidor");
     }
+    console.log("Comentário salvo:", result);
+    res.redirect("/"); 
   });
 };
