@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sucesso - Museu Virtual</title>
+    <link rel="stylesheet" href="styles/style.css">  
+</head>
+<body class="success-page">
+    <div class="container">
+        <h1>✅ Comentário Enviado com Sucesso!</h1>
+        <p class="success-msg"><%= mensagem %></p>
+        
+        <% if (idObra) { %>
+            <p><strong>Obra associada:</strong> ID <%= idObra %></p>
+        <% } %>
+        
+        <% if (idComentario) { %>
+            <p><strong>Seu comentário foi salvo com ID:</strong> <%= idComentario %></p>
+        <% } %>
+        
+        <a href="/" class="btn">← Voltar ao Museu Virtual</a>
+    </div>
+</body>
+</html>
