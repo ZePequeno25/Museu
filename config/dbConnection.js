@@ -1,20 +1,17 @@
 const mysql = require('mysql2');
 
-const dbConfig = {
-  host: 'localhost',
-  database: 'museu',
-  user: 'ifsp',
-  password: 'ifsp',
-};
+const host = 'localhost';
+const database = 'museu';
+const user = 'ifsp';
+const password = 'ifsp';
 
-const db = mysql.createConnection(dbConfig);
+// Aqui está sendo exportada uma função que precisa ser executada por quem a chama para que a conexão seja feita.
 
-db.connect((err) => {
-  if (err) {
-      console.error('Erro ao conectar no MySQL:', err);
-      return;
-  }
-  console.log('Conectado ao MySQL com sucesso!');
-});
-
-module.exports = db;
+module.exports = () => {
+  return mysql.createConnection({
+      host: host,
+      user: user,
+      password: password, 
+      database: database
+    });
+}

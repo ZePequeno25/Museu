@@ -1,41 +1,22 @@
-const dbConnection = require('../../config/dbConnection.js');
-const MensagemModel = require('../models/mensagemModel');  
+const dbConnection = require("../../config/dbConnection.js");
+const { salvar } = require("../models/mensagemModel.js");
 
-// Função pro POST: processa o form e insere no BD
-exports.mensagemPost = (app, req, res) => {
-  console.log('[Controller ComentarioPost]');
+module.exports = (app, req, res) => {
+  console.log("[Controller Mensagem]");
 
-  const comentario = req.body.comentary;
-  const idObra = req.body.id_obradearte;
+  const conn = dbConnection();
+  const { comentary, id_obradearte } = req.body;
 
-  if (!comentario || !idObra) {
-      console.error('Dados inválidos!');
-      return res.redirect('/');
+  if (!comentary || !id_obradearte) {
+    return res.status(400).send("Dados inválidos");
   }
 
-  const MensagemModel = require('../models/mensagemModel');
-  MensagemModel.insertComentario(comentario, idObra, (err, result) => {
-      if (err) {
-          console.error('Erro no model:', err.message || err);
-          return res.redirect('/');
-      }
-
-      console.log('Resultado inserido:', result);
-      console.log('Comentário inserido com sucesso!');
-
-      res.redirect('/sucesso?obra=' + idObra + '&id=' + result.insertId);
-  });
-};
-
-exports.sucessGet = (app, req, res) => {
-  console.log('[Controller Sucesso]');
-
-  const idObra = req.query.obra || null;
-  const idComentario = req.query.id || null;
-
-  res.render('sucesso', { 
-      mensagem: 'Comentário inserido com sucesso!', 
-      idObra: idObra, 
-      idComentario: idComentario 
+  salvar(conn, comentary, id_obradearte, (err, result) => {
+    if (err) {
+      console.error("Erro ao salvar comentário:", err);
+      return res.status(500).send("Erro no servidor");
+    }
+    console.log("Comentário salvo:", result);
+    res.redirect("/"); 
   });
 };
