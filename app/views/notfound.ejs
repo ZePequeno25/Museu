@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Não encontrada</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-
+    <title>Não Encontrado - Museu</title>
+    <style> body { font-family: Arial; padding: 20px; color: red; text-align: center; } </style>
 </head>
-
 <body>
-    <h1>Página não encontrada</h1>
-
+    <h1>Opa! Algo deu errado.</h1>
+    <p>Erro: <%= typeof message !== 'undefined' ? message : 'Página não encontrada' %></p>
+    <a href="/">Voltar para Home</a>
 </body>
-
 </html>

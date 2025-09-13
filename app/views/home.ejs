@@ -31,8 +31,16 @@
                         </p>
                     </div>
                 </div>
-                <form action="" method="post">
-                    <input type="text" name="campo" />
+                <form action="/mensagem" method="post">
+                    <label for="comentary">Comentário:</label>
+                    <input type="text" id="comentary" name="comentary" placeholder="Digite seu comentário..." required />
+
+                    <label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label>
+                    <!-- Preenche automaticamente com o ID da obra atual -->
+                    <input type="hidden" id="id_obradearte" name="id_obradearte" 
+                    value="<%= paintings[i].id %>" required min="1" readonly />
+
+                    <button type="submit">Enviar</button>
                 </form>
                 <hr />
             <% } %>
