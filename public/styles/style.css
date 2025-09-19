@@ -14,6 +14,10 @@ body.tarsila {
     background-color: rgb(173, 8, 8); /* Laranja */
 }
 
+body.insertPainting{
+    background-color: rgb(24, 8, 173);
+}
+
 .glow-on-hover {
     width: 220px;
     height: 50px;

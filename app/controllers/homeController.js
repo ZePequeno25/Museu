@@ -1,5 +1,5 @@
 const dbConnection = require('../../config/dbConnection');
-const { getPaintings } = require('../models/homeModels');
+const { getPaintings, addpainting } = require('../models/homeModels');
 
 module.exports.home = (app, req, res) => {
   // Aqui vamos fazer a chamada para o model do banco de dados.
@@ -9,8 +9,8 @@ module.exports.home = (app, req, res) => {
   const conn = dbConnection();  // Chama a função corretamente e armazena em 'conn'
 
   getPaintings(conn, (error, result) => {
-    console.log(error);
-    console.log(result);
+   // console.log(error);
+   // console.log(result);
 
     if (error) {
       console.error('Erro ao buscar pinturas:', error);
@@ -20,3 +20,21 @@ module.exports.home = (app, req, res) => {
     res.render('home.ejs', { paintings: result });
   })
 } 
+
+module.exports.addPainting = async (app, req, res) => {
+  console.log('[Controller addPainting]');
+  console.log(req.body)
+  const conn = dbConnection();
+  addpainting(conn, req.body, (error, result) => {
+      console.log('Error: ', error);
+      if(error){
+        res.send('Erro ao gravar no banco de dados');
+        return error;
+      }
+      console.log('Resultado', result);
+      res.redirect('/');
+  });
+    
+  
+  //receber os dados, validar e salvar no banco e retornar uma resposta
+}
