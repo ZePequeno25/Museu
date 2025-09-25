@@ -36,7 +36,7 @@
                     <label for="comentary">Comentário:</label>
                     <input type="text" id="comentary" name="comentary" placeholder="Digite seu comentário..." required />
                     
-                    <label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label>
+                    <a href="/obradearte?idobra=<%= paintings[i].id %>"><label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label></a>
                     <input type="hidden" id="id_obradearte" name="id_obradearte" value="<%= paintings[i].id %>" required />
                     
                     <button type="submit">Enviar</button>

@@ -4,6 +4,7 @@ const { tarsila } = require('../controllers/tarsilaController.js');
 const { portinari } = require('../controllers/portinariController.js');
 const mensagemController = require("../controllers/mensagemController.js");
 const { addPainting } = require('../controllers/homeController.js');
+const { getPaintingController } = require('../controllers/homeController.js');
 
 //problema de indefinido abaixo
 const validatePanting = (res, req, next) =>{
@@ -67,6 +68,10 @@ module.exports = {
       console.log('Rota /obra/salvar acionada');
       addPainting(app, req, res);
     });
+  },
+  getPainting: (app) => {
+    app.get('/obradearte', (req, res) => {
+      getPaintingController(app, req, res);
+    });
   }
-
-  };
+};

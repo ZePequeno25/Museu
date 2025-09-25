@@ -1,5 +1,5 @@
 const dbConnection = require('../../config/dbConnection');
-const { getPaintings, addpainting } = require('../models/homeModels');
+const { getPaintings, addpainting, getPaintingModel } = require('../models/homeModels');
 
 module.exports.home = (app, req, res) => {
   // Aqui vamos fazer a chamada para o model do banco de dados.
@@ -37,4 +37,16 @@ module.exports.addPainting = async (app, req, res) => {
     
   
   //receber os dados, validar e salvar no banco e retornar uma resposta
+}
+
+module.exports.getPaintingController = async(app, req, res) =>{
+  console.log("[Controller getPainting]");
+  const idObra = req.query.idobra;
+  console.log("idObra = ",idObra);
+  const conn = dbConnection();
+
+  getPaintingModel(idObra, conn, (erro, result) =>{
+    res.render('showPainting.ejs', {painting: result})
+  });
+
 }

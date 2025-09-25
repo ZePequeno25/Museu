@@ -9,3 +9,10 @@ module.exports.addpainting = (conn, painting, callback) =>{
   console.log('Home model addpainting');
   conn.query(sql, [painting.nome, painting.artista, painting.ano,painting.urlimagem], callback);
 }
+
+module.exports.getPaintingModel = (idObra, conn, callback) =>{
+  const sql = `SELECT * FROM obrasdearte where id = ${idObra};`;
+  console.log('Home model getPaintingModel');
+
+  conn.query(sql, callback);
+}

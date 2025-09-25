@@ -17,6 +17,7 @@ routes.routeNotFound(app);
 routes.enviaMensagem(app);
 routes.InsertPainting(app);
 routes.savePainting(app);
+routes.getPainting(app);
 
 const port = 3000;
 app.listen(port, function(){
