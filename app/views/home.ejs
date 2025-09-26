@@ -37,9 +37,10 @@
                     <input type="text" id="comentary" name="comentary" placeholder="Digite seu comentário..." required />
                     
                     <a href="/obradearte?idobra=<%= paintings[i].id %>"><label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label></a>
+                    <a href="/obradearte?<%= paintings.id %>/edit">Editar</a> <-- problema como resolve?
                     <input type="hidden" id="id_obradearte" name="id_obradearte" value="<%= paintings[i].id %>" required />
                     
-                    <button type="submit">Enviar</button>
+                    <button type="submit" class="glow-on-hover">Enviar</button>
                 </form>
                 <hr />
             <% } %>

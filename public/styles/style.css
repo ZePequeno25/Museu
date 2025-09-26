@@ -22,6 +22,10 @@ body.ShowPainting{
     background-color: rgb(53, 204, 7);
 }
 
+body.Editar{
+    background-color: rgb(75, 77, 216);
+}
+
 .glow-on-hover {
     width: 220px;
     height: 50px;

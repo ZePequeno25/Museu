@@ -1,5 +1,5 @@
 const dbConnection = require('../../config/dbConnection');
-const { getPaintings, addpainting, getPaintingModel } = require('../models/homeModels');
+const { getPaintings, addpainting, getPaintingModel, updatePainting} = require('../models/homeModels');
 
 module.exports.home = (app, req, res) => {
   // Aqui vamos fazer a chamada para o model do banco de dados.
@@ -50,3 +50,36 @@ module.exports.getPaintingController = async(app, req, res) =>{
   });
 
 }
+
+module.exports.editPainting = (app, req, res) =>{
+  console.log('[Controller editPainting]');
+  const id = req.query.idobra;
+  const conn = dbConnection();
+  getPaintingModel(id, conn, (error, result) =>{
+    if(error || !result[0]){
+      console.error(`Erro ao busca pintura: ${error}`);
+      return res.status(404).render('notfound.ejs');
+    }
+    res.render('edit.ejs', {painting: result[0], errors: []});
+  });
+};
+
+module.exports.updatePainting = (app, req, res) =>{
+  console.log('[Controller updatePainting]');
+  console.log(req.body);
+
+  const id = req.query.idobra;
+  const conn = dbConnection();
+
+  this.updatePainting(conn, id, req.body, (error, result) => {
+    if (error) {
+      console.error(`Erro ao atualizar pintura: ${error}`);
+      return res.status(500).send('Erro ao atualizar no banco de dados');
+    }
+    if(result.affectedRows === 0){
+      return res.status(404).render('notfound.ejs');
+    }
+    req.session.success = 'Obra atualizada com sucesso!';
+    res.redirect('/');
+  });
+};
