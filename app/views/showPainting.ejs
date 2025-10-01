@@ -3,23 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <title>Museu Virtual</title>
 </head>
 <body class="ShowPainting">
-    <a href="/"><button class="glow-on-hover">Voltar Para Inicio</button></a>
-    <h2 class="title">Obra <%= painting[0].nome %></h2>
+    <a href="/"><button class="glow-on-hover">Voltar</button></a>
     <div class="container">
+        <h2 class="title">Obra <%= painting[0].nome %></h2>
         <div>
             <div class="card">
                 <img src="<%= painting[0].urlimagem %>" class="card-image" alt="<%= painting[0].nome %>">
                 <div class="card-body">
-                    <h5 class="card-title">
-                        <%= painting[0].nome %>
-                    </h5>
-                    <p class="card-text">
-                        <%= painting[0].artista %>
-                    </p>
+                    <h5 class="card-title"><%= painting[0].nome %></h5>
+                    <p class="card-text"><%= painting[0].artista %></p>
                 </div>
             </div>
             <hr />

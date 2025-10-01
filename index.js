@@ -15,11 +15,7 @@ routes.tarsila(app);
 routes.portinari(app);
 routes.routeNotFound(app);
 routes.enviaMensagem(app);
-routes.InsertPainting(app);
-routes.savePainting(app);
 routes.getPainting(app);
-routes.editPainting(app);
-routes.updatePainting(app);
 
 const port = 3000;
 app.listen(port, function(){

@@ -11,9 +11,8 @@
 
 <body class="home">
     <h1>Rota principal</h1>
-    <a href="/tarsila"><button class="glow-on-hover">Ir para Tarsilia</button></a>
+    <a href="/tarsila"><button class="glow-on-hover">Ir para tarsilia</button></a>
     <a href="/portinari"><button class="glow-on-hover">Ir para Portinari</button></a>
-    <a href="/inserirobra"><button class="glow-on-hover">Ir para Inserir obra</button></a>
 
     <div class="container">
         <h1 class="title">Museu Virtual</h1>
@@ -24,9 +23,9 @@
                         <img src="<%= paintings[i].urlimagem %>" class="card-image" alt="<%= paintings[i].nome %>" />
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">
+                        <a href="/obradearte?idobra=<%= paintings[i].id %>">
                             <%= paintings[i].nome %>
-                        </h5>
+                        </a>
                         <p class="card-text">
                             <%= paintings[i].artista %>
                         </p>
@@ -36,11 +35,10 @@
                     <label for="comentary">Comentário:</label>
                     <input type="text" id="comentary" name="comentary" placeholder="Digite seu comentário..." required />
                     
-                    <a href="/obradearte?idobra=<%= paintings[i].id %>"><label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label></a>
-                    <a href="/obradearte?<%= paintings.id %>/edit">Editar</a> <-- problema como resolve?
+                    <label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label>
                     <input type="hidden" id="id_obradearte" name="id_obradearte" value="<%= paintings[i].id %>" required />
                     
-                    <button type="submit" class="glow-on-hover">Enviar</button>
+                    <button type="submit">Enviar</button>
                 </form>
                 <hr />
             <% } %>
