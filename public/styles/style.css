@@ -14,6 +14,9 @@ body.tarsila {
     background-color: rgb(173, 8, 8); /* Laranja */
 }
 
+body.ShowPainting{
+    background-color: rgb(163, 43, 43);
+}
 .glow-on-hover {
     width: 220px;
     height: 50px;

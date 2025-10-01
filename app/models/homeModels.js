@@ -3,3 +3,9 @@ module.exports.getPaintings = (conn, callback) => {
     callback(err, results);
   });
 };
+
+module.exports.getPainting = (paintingId, connection, callback) => {
+  const sql = `select * from obrasdearte where id='${paintingId}';`;
+  console.log(sql);
+  connection.query(sql, callback);
+}

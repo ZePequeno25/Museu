@@ -1,5 +1,5 @@
 const dbConnection = require('../../config/dbConnection');
-const { getPaintings } = require('../models/homeModels');
+const { getPaintings,getPainting } = require('../models/homeModels');
 
 module.exports.home = (app, req, res) => {
   // Aqui vamos fazer a chamada para o model do banco de dados.
@@ -19,4 +19,14 @@ module.exports.home = (app, req, res) => {
 
     res.render('home.ejs', { paintings: result });
   })
-} 
+}
+
+module.exports.getPaintingController = (app, req, res) => {
+  console.log('[Controller Home Get Painting]');
+  let paintingId = req.query.idobra;
+  console.log(paintingId);
+  dbConn = dbConnection();
+  getPainting(paintingId, dbConn, (error, result) => {
+    res.render('showPainting.ejs', { painting: result });
+  });
+};

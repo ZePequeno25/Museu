@@ -15,6 +15,7 @@ routes.tarsila(app);
 routes.portinari(app);
 routes.routeNotFound(app);
 routes.enviaMensagem(app);
+routes.getPainting(app);
 
 const port = 3000;
 app.listen(port, function(){

@@ -23,9 +23,9 @@
                         <img src="<%= paintings[i].urlimagem %>" class="card-image" alt="<%= paintings[i].nome %>" />
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">
+                        <a href="/obradearte?idobra=<%= paintings[i].id %>">
                             <%= paintings[i].nome %>
-                        </h5>
+                        </a>
                         <p class="card-text">
                             <%= paintings[i].artista %>
                         </p>
