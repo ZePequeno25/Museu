@@ -4,20 +4,20 @@
 	<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portinari</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
 </head>
 <body class="portinari">
 	<a href="/"><button class="glow-on-hover">Voltar</button></a>
 
 	<h1>Obras de Portinari</h1>
 	<% for (let i=0; i<paintings.length; i++) { %>
-		<div class="card">
-			<img src="<%= paintings[i].urlimagem %>" class="card-image" alt="<%= paintings[i].nome %>">
-			<div class="card-body">
-				<h5 class="card-title">
+		<div>
+			<img src="<%= paintings[i].urlimagem %>" alt="<%= paintings[i].nome %>">
+			<div>
+				<h5>
 					<%= paintings[i].nome %>
 				</h5>
-				<p class="card-text">
+				<p>
 					<%= paintings[i].artista %>
 				</p>
 			</div>

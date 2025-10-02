@@ -13,10 +13,13 @@ app.use(express.static('./public'));
 routes.home(app);
 routes.tarsila(app);
 routes.portinari(app);
-routes.routeNotFound(app);
 routes.enviaMensagem(app);
 routes.getPainting(app);
+routes.editPainting(app);
+routes.updatePainting(app);
 
+//ultimo sempre
+routes.routeNotFound(app);
 const port = 3000;
 app.listen(port, function(){
     console.log(`Servidor rodando na porta: ${port}`);

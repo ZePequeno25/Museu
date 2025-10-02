@@ -17,6 +17,7 @@ module.exports = (app, req, res) => {
       return res.status(500).send("Erro no servidor");
     }
     console.log("Comentário salvo:", result);
-    res.redirect("/"); 
+    req.session.success = 'Comentário adicionado com sucesso!';
+    res.redirect(`/obradearte?idobra=${id_obradearte}`); 
   });
 };

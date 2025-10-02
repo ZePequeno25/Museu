@@ -9,3 +9,9 @@ module.exports.getPainting = (paintingId, connection, callback) => {
   console.log(sql);
   connection.query(sql, callback);
 }
+
+module.exports.updatePainting = (conn, id, painting, callback) => {
+  const sql = 'UPDATE obrasdearte SET nome = ?, artista = ?, ano = ? WHERE id = ?';
+  console.log('Home model updatePainting');
+  conn.query(sql, [painting.nome, painting.artista, painting.ano, id], callback);
+};

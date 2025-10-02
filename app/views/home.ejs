@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Musel virtual</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="/styles/style.css">
 
 </head>
 
@@ -15,30 +15,32 @@
     <a href="/portinari"><button class="glow-on-hover">Ir para Portinari</button></a>
 
     <div class="container">
-        <h1 class="title">Museu Virtual</h1>
-        <div class="paintings-container">
+        <h1>Museu Virtual</h1>
+        <div>
             <% for (let i=0; i<paintings.length; i++) { %>
-                <div class="card">
-                    <div class="card-image-container">
-                        <img src="<%= paintings[i].urlimagem %>" class="card-image" alt="<%= paintings[i].nome %>" />
+                <div>
+                    <label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label>
+                    <div>
+                        <img src="<%= paintings[i].urlimagem %>" alt="<%= paintings[i].nome %>" />
                     </div>
-                    <div class="card-body">
+                    <div>
                         <a href="/obradearte?idobra=<%= paintings[i].id %>">
                             <%= paintings[i].nome %>
                         </a>
-                        <p class="card-text">
+                        <p>
                             <%= paintings[i].artista %>
                         </p>
+                        <a href="/obrasdearte/<%= paintings[i].id %>/edit">Editar</a>
                     </div>
                 </div>
                 <form action="/enviaMensagem" method="post">
                     <label for="comentary">Comentário:</label>
                     <input type="text" id="comentary" name="comentary" placeholder="Digite seu comentário..." required />
                     
-                    <label for="id_obradearte">ID da Obra de Arte: <%= paintings[i].id %></label>
+                    <label for="id_obradearte">Obra: <%= paintings[i].id %></label>
                     <input type="hidden" id="id_obradearte" name="id_obradearte" value="<%= paintings[i].id %>" required />
                     
-                    <button type="submit">Enviar</button>
+                    <button type="submit" class="glow-on-hover">Enviar</button>
                 </form>
                 <hr />
             <% } %>
