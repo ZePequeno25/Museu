@@ -11,13 +11,13 @@ module.exports = (app, req, res) => {
     return res.status(400).send("Dados inválidos");
   }
 
-  salvar(conn, comentary, id_obradearte, (err, result) => {
-    if (err) {
-      console.error("Erro ao salvar comentário:", err);
+  salvar(conn, comentary, id_obradearte, (error, result) => {
+    if (error) {
+      console.error("Erro ao salvar comentário:", error);
       return res.status(500).send("Erro no servidor");
     }
     console.log("Comentário salvo:", result);
     req.session.success = 'Comentário adicionado com sucesso!';
-    res.redirect(`/obradearte?idobra=${id_obradearte}`); 
+    res.redirect(`/`); 
   });
 };

@@ -12,7 +12,7 @@
         <% if (errors.length > 0) { %>
         <div><% errors.forEach(error => { %><p><%= error %></p><% }) %></div>
         <% } %>
-        <form action="/obrasdearte/<%= painting.id %>?_method=PUT" method="POST">
+        <form action="/obradearte/<%= painting.id %>?edit" method="POST">
         <div>
             <label>Nome</label>
             <input type="text" name="nome" id="nome" value="<%= painting.nome %>" required maxlength="45">

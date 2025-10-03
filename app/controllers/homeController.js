@@ -58,7 +58,7 @@ module.exports.updatePainting = (app, req, res) => {
     if(result.affectedRows === 0){
       return res.status(404).render('notfound.ejs');
     }
-    req.session.sucess = 'Obra atualizada com sucesso!';
+    //req.session.sucess = 'Obra atualizada com sucesso!';
     res.redirect('/');
   });
 };
