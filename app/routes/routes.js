@@ -2,8 +2,28 @@ const Joi = require('joi');
 const { home,getPaintingController,editPainting, updatePainting,addPainting } = require('../controllers/homeController.js');
 const { tarsila } = require('../controllers/tarsilaController.js');
 const { portinari } = require('../controllers/portinariController.js');
-const { authenticate } = require('../controllers/usersController.js');
+const { authenticate, addUser } = require('../controllers/usersController.js');
 const mensagemController = require("../controllers/mensagemController.js");
+
+const validatelogin = (req, res, next) =>{
+  const schema = Joi.object({
+    email: Joi.string().email().required.messages({
+      'string.empty': 'Email é obrigatorio',
+      'string.email': 'Precisa ser um E-mail valido'
+    }),
+    password: Joi.string().min(8).max(16).required.messages({
+      'string.empty': 'Senha é obrigatorio',
+      'string.min': 'Senha no Minimo 8 caracteres',
+      'string.max': 'Senha no Maximo 16 caracteres'
+    })
+  });
+  const {error} = schema.validatelogin(req.body, {abortEarly: false});
+  console.log('Erro de validação: ', error);
+  if(error){
+    return res.render('userform.ejs', {errors: error.details.map(e => e.message), login: req.body});
+  }
+  next();
+}
 
 //validação de pinturas
 const validatePainting = (req, res, next) => {
@@ -148,6 +168,12 @@ module.exports = {
       app.post('/autenticar', (req, res) =>{
         console.log('Rota /autenticar acionada');
         authenticate(app, req, res);
+      });
+    },
+    addusers: (app) =>{
+      app.post('/usuario/salvar', validatelogin, (req, res)=>{
+        console.log('Rota /usuario/salvar acionada');
+        addUser(app,req,res);
       });
     },
 
