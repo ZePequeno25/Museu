@@ -2,6 +2,7 @@ const Joi = require('joi');
 const { home,getPaintingController,editPainting, updatePainting,addPainting } = require('../controllers/homeController.js');
 const { tarsila } = require('../controllers/tarsilaController.js');
 const { portinari } = require('../controllers/portinariController.js');
+const { authenticate } = require('../controllers/usersController.js');
 const mensagemController = require("../controllers/mensagemController.js");
 
 //validação de pinturas
@@ -143,7 +144,13 @@ module.exports = {
         addPainting(app, req, res);
       });
     },
-    
+    authentication: (app) => {
+      app.post('/autenticar', (req, res) =>{
+        console.log('Rota /autenticar acionada');
+        authenticate(app, req, res);
+      });
+    },
+
     //sempre o ultimo
     routeNotFound: (app) => {
       app.use((req, res) => {
