@@ -1,5 +1,5 @@
 module.exports ={
-    addUser: (user, conn, callback) => {
+    registerUser: (user, conn, callback) => {
         console.log('[User Model', user);
         const sql = `INSERT INTO users (email, password) VALUES ("${user.email}", "${user.password}");`;
         console.log('[User Model SQL', sql);

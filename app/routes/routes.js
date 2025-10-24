@@ -2,8 +2,52 @@ const Joi = require('joi');
 const { home,getPaintingController,editPainting, updatePainting,addPainting } = require('../controllers/homeController.js');
 const { tarsila } = require('../controllers/tarsilaController.js');
 const { portinari } = require('../controllers/portinariController.js');
-const { authenticate } = require('../controllers/usersController.js');
+const { authenticate, register } = require('../controllers/usersController.js');
 const mensagemController = require("../controllers/mensagemController.js");
+
+const validatelogin = (req, res, next) =>{
+  const schema = Joi.object({
+    email: Joi.string().email().required.messages({
+      'string.empty': 'Email é obrigatorio',
+      'string.email': 'Precisa ser um E-mail valido'
+    }),
+    password: Joi.string().min(8).max(16).required.messages({
+      'string.empty': 'Senha é obrigatorio',
+      'string.min': 'Senha no Minimo 8 caracteres',
+      'string.max': 'Senha no Maximo 16 caracteres'
+    })
+  });
+  const {error} = schema.validatelogin(req.body, {abortEarly: false});
+  console.log('Erro de validação: ', error);
+  if(error){
+    return res.render('userform.ejs', {errors: error.details.map(e => e.message), login: req.body});
+  }
+  next();
+}
+
+validateRegister = (req, res, next) =>{
+  const schema = Joi.object({
+    email: Joi.string().email().required.messages({
+      'string.empty': 'Email é obrigatorio',
+      'string.email': 'Precisa ser um E-mail valido'
+    }),
+    password: Joi.string().min(8).max(16).required.messages({
+      'string.empty': 'Senha é obrigatorio',
+      'string.min': 'Senha no Minimo 8 caracteres',
+      'string.max': 'Senha no Maximo 16 caracteres'
+    }),
+    passwordConfirm: Joi.string().valid(Joi.ref('password')).required.messages({
+      'string.valid': 'As senhas devem corresponder',
+      'string.empty': 'Confirmação de senha é obrigatorio'
+    })
+  });
+  const {error} = schema.validateRegister(req.body, {abortEarly: false});
+  console.log('Erro de validação: ', error);
+  if(error){
+    return res.render('authenticationform.ejs', {errors: error.details.map(e => e.message), register: req.body});
+  }
+  next();
+}
 
 //validação de pinturas
 const validatePainting = (req, res, next) => {
@@ -90,9 +134,9 @@ const validateComment = (req, res, next) => {
 
 module.exports = {
     home: (app) => {
-      console.log('Rota / criada');
-      app.get('/', (req, res) => {
-        console.log('Rota / acionada');
+      console.log('Rota /home criada');
+      app.get('/home', (req, res) => {
+        console.log('Rota /home acionada');
         home(app, req, res); //Controller da home
       });
     },
@@ -144,10 +188,26 @@ module.exports = {
         addPainting(app, req, res);
       });
     },
-    authentication: (app) => {
-      app.post('/autenticar', (req, res) =>{
-        console.log('Rota /autenticar acionada');
+    login: (app) => {
+      app.get('/login', (req, res) => {
+        console.log('Rota /getlogin acionada');
+        res.render('authenticationform.ejs', { user: {} });
+      });
+
+      app.post('/login', validatelogin, (req, res) =>{
+        console.log('Rota /postlogin acionada');
         authenticate(app, req, res);
+      });
+    },
+    registerUser: (app) => {
+      app.get('/', (req, res) => {
+        console.log('Rota /getcadastrar acionada');
+        res.render('userform.ejs', { user: {}, errors: [] })
+      });
+
+      app.post('/cadastrar',validateRegister, (req, res) => {
+        console.log('Rota /postcadastrar acionada');
+        register(app, req, res);
       });
     },
 

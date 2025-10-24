@@ -28,6 +28,8 @@ routes.editPainting(app);
 routes.updatePainting(app);
 routes.InsertPainting(app);
 routes.savePainting(app);
+routes.login(app);
+routes.registerUser(app);
 
 //ultimo sempre
 routes.routeNotFound(app);
