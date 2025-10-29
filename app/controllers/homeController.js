@@ -7,7 +7,7 @@ module.exports.home = (app, req, res) => {
   console.log('[Controller home]');
   
   // Correção: Mudou 'dbConn' para 'dbConnection' para consistência e evitar erro de variável
-  const conn = dbConnection();  // Chama a função corretamente e armazena em 'conn'
+  const conn = dbConnection;  // Chama a função corretamente e armazena em 'conn'
 
   getPaintings(conn, (error, result) => {
     console.log(error);
@@ -25,7 +25,7 @@ module.exports.getPaintingController = (app, req, res) => {
   console.log('[Controller Home Get Painting]');
   let paintingId = req.query.idobra;
   console.log(paintingId);
-  dbConn = dbConnection();
+  dbConn = dbConnection;
   getPainting(paintingId, dbConn, (error, result) => {
     res.render('showPainting.ejs', { painting: result });
   });
@@ -34,7 +34,7 @@ module.exports.getPaintingController = (app, req, res) => {
 module.exports.editPainting = (app, req, res) => {
   console.log('[Controller editPainting]');
   const id = req.params.id;
-  const conn = dbConnection();
+  const conn = dbConnection;
   getPainting(id, conn, (error, result) => {
     if(error || !result[0]){
       console.error('Erro ao buscar pintura:', error);
@@ -49,7 +49,7 @@ module.exports.updatePainting = (app, req, res) => {
   console.log(req.body);
 
   const id = req.params.id;
-  const conn = dbConnection();
+  const conn = dbConnection;
   updatePainting(conn, id, req.body, (error, result) =>{
     if(error){
       console.error('Erro ao atualizar pintura:', error);
@@ -59,6 +59,6 @@ module.exports.updatePainting = (app, req, res) => {
       return res.status(404).render('notfound.ejs');
     }
     //req.session.sucess = 'Obra atualizada com sucesso!';
-    res.redirect('/');
+    res.redirect('/home');
   });
 };

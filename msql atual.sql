@@ -4,8 +4,8 @@ use museu;
 
 create table obrasdearte(
 	id int primary key auto_increment,
-    nome varchar(45) not null,
-    artista varchar(45),
+    nome varchar(255) not null,
+    artista varchar(255),
     ano int not null,
     urlimagem text not null,
     created_at timestamp default current_timestamp
@@ -18,6 +18,13 @@ create table comments(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     foreign key (id_obradearte)references obrasdearte(id)
     ON DELETE CASCADE  
+);
+
+create table users(
+    id int primary key auto_increment,
+    email varchar(255) not null,
+    password varchar(255) not null,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 insert into obrasdearte (nome, artista, ano, urlimagem) values("Cafe", "Cândido Portinari", "1935", "https://firebasestorage.googleapis.com/v0/b/museu-virtual-dd512.appspot.com/o/portinariacafe.jpg?alt=media&token=6a326b9a-d32f-491f-8bd7-54d10ab3af99");

@@ -2,8 +2,57 @@ const Joi = require('joi');
 const { home,getPaintingController,editPainting, updatePainting,addPainting } = require('../controllers/homeController.js');
 const { tarsila } = require('../controllers/tarsilaController.js');
 const { portinari } = require('../controllers/portinariController.js');
-const { authenticate } = require('../controllers/usersController.js');
+const { authenticate, register } = require('../controllers/usersController.js');
 const mensagemController = require("../controllers/mensagemController.js");
+
+
+//validação de login
+const validatelogin = (req, res, next) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required().messages({
+      'string.email': 'Email inválido',
+      'any.required': 'Email é obrigatório'
+    }),
+    password: Joi.string().min(8).required().messages({
+      'string.min': 'Senha deve ter pelo menos 8 caracteres',
+      'any.required': 'Senha é obrigatória'
+    })
+  });
+  const { error } = schema.validate(req.body, { abortEarly: false });
+  console.log('Erro de validação de login:', error);
+  if (error) {
+    return res.render('authenticationform.ejs', { errors: error.details.map(e => e.message), user: req.body });
+  }
+  next();
+};
+
+//validação de registro
+const validateRegister = (req, res, next) => {
+  const schema = Joi.object({
+      email: Joi.string().email().max(255).required().messages({
+          'string.email': 'Email inválido',
+          'string.max': 'O email deve ter no máximo 255 caracteres',
+          'string.empty': 'Email Não pode ser vazio',
+          'any.required': 'Email é obrigatório'
+      }),
+      password: Joi.string().min(8).required().messages({
+          'string.min': 'Senha deve ter pelo menos 8 caracteres',
+          'any.required': 'Senha é obrigatória',
+          'string.empty': 'Senha não pode ser vazia'
+      }),
+      confirmpassword: Joi.string().required().valid(Joi.ref('password')).required().messages({
+          'any.only': 'As senhas devem ser iguais',
+          'any.required': 'Confirmação de senha é obrigatória',
+          'string.empty': 'Confirmação de senha não pode ser vazia'
+      })
+  });
+  const { error } = schema.validate(req.body, { abortEarly: false });
+  console.log('Erro de validação de registro:', error);
+  if (error) {
+      return res.render('userform.ejs', { errors: error.details.map(e => e.message), user: req.body });
+  }
+  next();
+};
 
 //validação de pinturas
 const validatePainting = (req, res, next) => {
@@ -68,12 +117,12 @@ const validateEditPainting = (req, res, next) => {
 
 const validateComment = (req, res, next) => {
   const schema = Joi.object({
-    comment: Joi.string().min(1).max(255).required().messages({
+    comentary: Joi.string().min(1).max(255).required().messages({
       'string.empty': 'Comentário é obrigatório',
       'string.min': 'Comentário deve ter pelo menos 1 caractere',
       'string.max': 'Comentário deve ter no máximo 255 caracteres'
     }),
-    idObra: Joi.number().integer().min(1).required().messages({
+    id_obradearte: Joi.number().integer().min(1).required().messages({
       'number.base': 'ID da obra deve ser um número',
       'number.min': 'ID da obra deve ser maior ou igual a 1',
       'any.required': 'ID da obra é obrigatório'
@@ -83,7 +132,7 @@ const validateComment = (req, res, next) => {
   const { error } = schema.validate(req.body, { abortEarly: false });
   console.log('Erro de validação de comentário:', error);
   if (error) {
-    return res.redirect(`/obradearte?idobra=${req.body.idObra || ''}&error=${encodeURIComponent(error.details.map(e => e.message).join('; '))}`);
+    return res.redirect(`/obradearte?idobra=${req.body.id_obradearte || ''}&error=${encodeURIComponent(error.details.map(e => e.message).join('; '))}`);
   }
   next();
 };
@@ -147,12 +196,23 @@ module.exports = {
     login: (app) => {
       app.get('/login', (req, res) => {
         console.log('Rota /getlogin acionada');
-        res.render('authenticationform.ejs', { user: {} });
+        res.render('authenticationform.ejs', { user: {}, errors: [] });
       });
 
       app.post('/login', validatelogin, (req, res) =>{
         console.log('Rota /postlogin acionada');
-        authenticate(app, req, res);
+        authenticate(req, res);
+      });
+    },
+    registerUser: (app) => {
+      app.get('/', (req, res) => {
+        console.log('Rota /register acionada');
+        res.render('userform.ejs', { user: {}, errors: [] });
+      });
+
+      app.post('/register', validateRegister, (req, res) => {
+        console.log('Rota /register acionada');
+        register(req, res);
       });
     },
 

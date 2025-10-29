@@ -4,16 +4,31 @@
 <head>
 	<meta charset="utf-8" />
 	<title>Museu Virtual</title>
+    <link rel="stylesheet" type="text/css" href="/styles/style.css" />
 </head>
 
-<body>
+<body class="authentication">
+
+    <h1>Museu Virtual</h1>
+    
+    <a href="/login" class="glow-on-hover">Login</a>
+    <a href="/" class="glow-on-hover">Registrar</a>
+
     <h2>Validação de usuário</h2>
     <form action="/login" method="post">
-        <input type="text" name="email" placeholder="Email" value='albordignon@gmail.com'/>
-        <input type="password" name="password" placeholder="Password" value='ifsp@1234'/>
+        <input type="text" name="email" placeholder="Email" value="<%= user.email || '' %>"/>
+        <input type="password" name="password" placeholder="Password" value=''/>
         <input type="submit" class="button" value="Validar Usuário" />
     </form>
-	
+	<section class="errors">
+        <% if (errors && errors.length > 0) { %>
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li class="error-msg"><%= error %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </section>
 
 </body>
 

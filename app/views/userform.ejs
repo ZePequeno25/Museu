@@ -4,28 +4,31 @@
 <head>
     <meta charset="utf-8" />
     <title>Museu Virtual</title>
+    <link rel="stylesheet" type="text/css" href="/styles/style.css" />
 </head>
 
-<body>
-    <section class="errors">
-        <% if(errors) { %>
-            <ul>
-                <% for(let i=0; i < errors.length; i++){ %>
-                    <li>
-                        <%= errors[i].msg %>
-                    </li>
-                    <% } %>
-            </ul>
-            <% } %>
-    </section>
-    <form action="/registro" method="post">
+<body class="userform">
+    <h1>Museu Virtual</h1>
+    
+    <a href="/login" class="glow-on-hover">Login</a>
+    <a href="/" class="glow-on-hover">Registrar</a>
+    
+    <h2>Cadastro de Usuário</h2>
+    <form action="/register" method="post">
         <input type="text" name="email" placeholder="Email" />
         <input type="password" name="password" placeholder="Password" />
         <input type="password" name="confirmpassword" placeholder="Confirme sua senha" />
         <input type="submit" class="button" value="Cadastrar">
     </form>
-
-
+    <section class="errors">
+        <% if (errors && errors.length > 0) { %>
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li class="error-msg"><%= error %></li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </section>
 </body>
 
 </html>
